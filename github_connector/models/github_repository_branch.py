@@ -97,11 +97,11 @@ class GithubRepository(models.Model):
         super(GithubRepository, self).__init__(pool, cr)
 
     # Action Section
-    @api.multi
+    
     def button_download_code(self):
         return self._download_code()
 
-    @api.multi
+    
     def button_analyze_code(self):
         return self._analyze_code()
 
@@ -126,7 +126,7 @@ class GithubRepository(models.Model):
                 'name': name, 'repository_id': repository_id})
         return branch
 
-    @api.multi
+    
     def _download_code(self):
         client = self.get_github_connector("")
         for branch in self:
@@ -216,7 +216,7 @@ class GithubRepository(models.Model):
 
         return {'size': size}
 
-    @api.multi
+    
     def _analyze_code(self):
         partial_commit = safe_eval(
             self.sudo().env['ir.config_parameter'].get_param(
@@ -246,20 +246,20 @@ class GithubRepository(models.Model):
         return True
 
     # Compute Section
-    @api.multi
+    
     @api.depends('name', 'repository_id.name')
     def _compute_complete_name(self):
         for branch in self:
             branch.complete_name =\
                 branch.repository_id.complete_name + '/' + branch.name
 
-    @api.multi
+    
     @api.depends('size')
     def _compute_mb_size(self):
         for branch in self:
             branch.mb_size = float(branch.size) / (1024 ** 2)
 
-    @api.multi
+    
     @api.depends('organization_id', 'name')
     def _compute_organization_serie_id(self):
         for branch in self:
@@ -267,7 +267,7 @@ class GithubRepository(models.Model):
                 if serie.name == branch.name:
                     branch.organization_serie_id = serie
 
-    @api.multi
+    
     @api.depends('complete_name')
     def _compute_local_path(self):
         source_path = tools.config.get('source_code_local_path', False)
@@ -280,7 +280,7 @@ class GithubRepository(models.Model):
                 source_path, branch.organization_id.github_login,
                 branch.complete_name)
 
-    @api.multi
+    
     @api.depends(
         'name', 'repository_id.name', 'organization_id.github_login',
         'organization_id.coverage_url_pattern')
@@ -294,7 +294,7 @@ class GithubRepository(models.Model):
                     repository_name=branch.repository_id.name,
                     branch_name=branch.name)
 
-    @api.multi
+    
     @api.depends(
         'name', 'repository_id.name', 'organization_id.github_login',
         'organization_id.ci_url_pattern')
@@ -308,7 +308,7 @@ class GithubRepository(models.Model):
                     repository_name=branch.repository_id.name,
                     branch_name=branch.name)
 
-    @api.multi
+    
     @api.depends('name', 'repository_id.complete_name')
     def _compute_github_url(self):
         for branch in self:

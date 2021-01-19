@@ -24,7 +24,7 @@ class OdooLibBin(models.Model):
         compute='_compute_module_version_qty', store=True)
 
     # Compute Section
-    @api.multi
+    
     @api.depends('module_version_ids', 'module_version_ids.lib_bin_ids')
     def _compute_module_version_qty(self):
         for lib_bin in self:

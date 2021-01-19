@@ -60,7 +60,7 @@ class GithubRepository(models.Model):
         string='Color Index', multi='ignore', compute='_compute_ignore')
 
     # Compute Section
-    @api.multi
+    
     @api.depends('organization_id.ignored_repository_names')
     def _compute_ignore(self):
         for repository in self:
@@ -69,13 +69,13 @@ class GithubRepository(models.Model):
                 ignored_txt and repository.name in ignored_txt.split("\n")
             repository.color = repository.is_ignored and 1 or 0
 
-    @api.multi
+    
     @api.depends('team_ids')
     def _compute_team_qty(self):
         for repository in self:
             repository.team_qty = len(repository.team_ids)
 
-    @api.multi
+    
     @api.depends('name', 'organization_id.github_login')
     def _compute_complete_name(self):
         for repository in self:
@@ -83,7 +83,7 @@ class GithubRepository(models.Model):
                 repository.organization_id.github_login + '/' +\
                 repository.name and repository.name or ''
 
-    @api.multi
+    
     @api.depends('repository_branch_ids.repository_id')
     def _compute_repository_branch_qty(self):
         for repository in self:
@@ -112,7 +112,7 @@ class GithubRepository(models.Model):
         })
         return res
 
-    @api.multi
+    
     def get_github_data_from_odoo(self):
         self.ensure_one()
         return {
@@ -121,14 +121,14 @@ class GithubRepository(models.Model):
             'homepage': self.website,
         }
 
-    @api.multi
+    
     def get_github_args_for_creation(self):
         self.ensure_one()
         return [
             self.organization_id.github_login,
         ]
 
-    @api.multi
+    
     def full_update(self):
         self.button_sync_branch()
 
@@ -138,7 +138,7 @@ class GithubRepository(models.Model):
         branches.button_sync_branch()
         return True
 
-    @api.multi
+    
     def button_sync_branch(self):
         github_branch = self.get_github_connector('repository_branches')
         branch_obj = self.env['github.repository.branch']

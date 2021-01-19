@@ -24,7 +24,7 @@ class WizardCreateTeam(models.TransientModel):
     wizard_repository_ids = fields.Many2many(
         string='Team Repositories', comodel_name='github.repository')
 
-    @api.multi
+    
     def get_github_data_from_odoo(self):
         self.ensure_one()
         res = super(WizardCreateTeam, self).get_github_data_from_odoo()
@@ -38,7 +38,7 @@ class WizardCreateTeam(models.TransientModel):
         })
         return res
 
-    @api.multi
+    
     def button_create_in_github(self):
         self.ensure_one()
         new_item = self.create_in_github(self.env['github.team'])

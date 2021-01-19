@@ -40,7 +40,7 @@ class GithubRepositoryBranch(models.Model):
         string='Runbot URL', compute='_compute_runbot_url')
 
     # Compute Section
-    @api.multi
+    
     @api.depends(
         'name', 'repository_id.runbot_id_external',
         'organization_id.runbot_url_pattern')
@@ -55,7 +55,7 @@ class GithubRepositoryBranch(models.Model):
                             branch.repository_id.runbot_id_external),
                         branch_name=branch.name)
 
-    @api.multi
+    
     @api.depends(
         'module_version_ids', 'module_version_ids.repository_branch_id')
     def _compute_module_version_qty(self):
@@ -72,7 +72,7 @@ class GithubRepositoryBranch(models.Model):
         branches = self.search([('state', '=', 'analyzed')])
         branches.write({'state': 'to_analyze'})
 
-    @api.multi
+    
     def _get_module_paths(self):
         # Compute path(s) to analyze
         self.ensure_one()

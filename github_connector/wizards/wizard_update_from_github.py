@@ -13,7 +13,7 @@ class WizardUpdateFromGithub(models.TransientModel):
     # Columns Section
     child_update = fields.Boolean(string='Update Child Objects', default=False)
 
-    @api.multi
+    
     def button_update_from_github(self):
         partial_commit = safe_eval(
             self.sudo().env['ir.config_parameter'].get_param(

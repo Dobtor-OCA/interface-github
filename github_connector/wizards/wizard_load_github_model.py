@@ -20,7 +20,7 @@ class WizardLoadGithubModel(models.TransientModel):
 
     child_update = fields.Boolean(string='Update Child Objects', default=False)
 
-    @api.multi
+    
     def button_create_from_github(self):
         for wizard in self:
             if wizard.github_type == 'organization':

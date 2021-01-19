@@ -153,7 +153,7 @@ class OdooModuleVersion(models.Model):
     )
 
     # Overload Section
-    @api.multi
+    
     def unlink(self):
         # Analyzed repository branches should be reanalyzed
         if not self._context.get('dont_change_repository_branch_state', False):
@@ -164,7 +164,7 @@ class OdooModuleVersion(models.Model):
         return super(OdooModuleVersion, self).unlink()
 
     # Compute Section
-    @api.multi
+    
     @api.depends(
         'repository_id.organization_id.github_login',
         'repository_id.name',
@@ -197,7 +197,7 @@ class OdooModuleVersion(models.Model):
             else:
                 version.odoo_type = 'other'
 
-    @api.multi
+    
     @api.depends('technical_name', 'repository_branch_id.complete_name')
     def _compute_complete_name(self):
         for version in self:
@@ -205,7 +205,7 @@ class OdooModuleVersion(models.Model):
                 version.repository_branch_id.complete_name +\
                 '/' + version.technical_name
 
-    @api.multi
+    
     @api.depends('description_rst')
     def _compute_description_rst_html(self):
         for version in self:
@@ -227,7 +227,7 @@ class OdooModuleVersion(models.Model):
                     "</h1>")
             version.description_rst_html = html_sanitize(output)
 
-    @api.multi
+    
     @api.depends('depends')
     def _compute_dependency_module_ids(self):
         module_obj = self.env['odoo.module']
@@ -239,7 +239,7 @@ class OdooModuleVersion(models.Model):
                     modules.append(module_obj.create_if_not_exist(module_name))
             version.dependency_module_ids = [x.id for x in modules]
 
-    @api.multi
+    
     @api.depends('external_dependencies')
     def _compute_lib(self):
         lib_python_obj = self.env['odoo.lib.python']
@@ -262,7 +262,7 @@ class OdooModuleVersion(models.Model):
             version.lib_bin_ids_description =\
                 ', '.join(sorted([x.name for x in bin_libs]))
 
-    @api.multi
+    
     @api.depends('license')
     def _compute_license_id(self):
         license_obj = self.env['odoo.license']
@@ -271,7 +271,7 @@ class OdooModuleVersion(models.Model):
                 version.license_id =\
                     license_obj.create_if_not_exist(version.license).id
 
-    @api.multi
+    
     @api.depends('author')
     def _compute_author(self):
         odoo_author_obj = self.env['odoo.author']
@@ -287,7 +287,7 @@ class OdooModuleVersion(models.Model):
             version.author_ids_description =\
                 ', '.join(sorted([x.name for x in authors]))
 
-    @api.multi
+    
     @api.depends(
         'repository_branch_id', 'repository_branch_id.organization_id',
         'repository_branch_id.organization_id.organization_serie_ids',
@@ -412,7 +412,7 @@ class OdooModuleVersion(models.Model):
         module_versions = self.search([])
         module_versions.clean_odoo_module_version()
 
-    @api.multi
+    
     def clean_odoo_module_version(self):
         for module_version in self:
             # Compute path(s) to analyze
@@ -428,7 +428,7 @@ class OdooModuleVersion(models.Model):
                 module_version._process_clean_module_version()
         return True
 
-    @api.multi
+    
     def _process_clean_module_version(self):
         for module_version in self:
             module_version.unlink()

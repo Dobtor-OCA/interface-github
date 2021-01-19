@@ -71,7 +71,7 @@ class OdooModule(models.Model):
         reaonly=True)
 
     # Compute Section
-    @api.multi
+    
     @api.depends('module_version_ids.image')
     def _compute_image(self):
         module_version_obj = self.env['odoo.module.version']
@@ -83,7 +83,7 @@ class OdooModule(models.Model):
             if last_version:
                 module.image = last_version.image
 
-    @api.multi
+    
     @api.depends('technical_name', 'module_version_ids.name')
     def _compute_name(self):
         module_version_obj = self.env['odoo.module.version']
@@ -97,7 +97,7 @@ class OdooModule(models.Model):
             else:
                 module.name = module.technical_name
 
-    @api.multi
+    
     @api.depends(
         'module_version_ids', 'module_version_ids.description_rst_html')
     def _compute_description(self):
@@ -117,20 +117,20 @@ class OdooModule(models.Model):
                     _("No Version Found") +
                     "</h1>")
 
-    @api.multi
+    
     @api.depends('dependence_module_version_ids.dependency_module_ids')
     def _compute_dependence_module_version_qty(self):
         for module in self:
             module.dependence_module_version_qty =\
                 len(module.dependence_module_version_ids)
 
-    @api.multi
+    
     @api.depends('module_version_ids')
     def _compute_module_version_qty(self):
         for module in self:
             module.module_version_qty = len(module.module_version_ids)
 
-    @api.multi
+    
     @api.depends('module_version_ids.author_ids')
     def _compute_author(self):
         for module in self:
@@ -142,7 +142,7 @@ class OdooModule(models.Model):
             module.author_ids_description =\
                 ', '.join(sorted([x.name for x in authors]))
 
-    @api.multi
+    
     @api.depends('module_version_ids.organization_serie_id')
     def _compute_organization_serie(self):
         for module in self:
@@ -164,6 +164,6 @@ class OdooModule(models.Model):
             module = self.create({'technical_name': technical_name})
         return module
 
-    @api.multi
+    
     def name_get(self):
         return [(module.id, module.technical_name) for module in self]

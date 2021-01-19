@@ -9,7 +9,7 @@ class WizardUpdateBranchList(models.TransientModel):
     _name = 'wizard.update.branch.list'
     _description = 'Wizard Update Branch List'
 
-    @api.multi
+    
     def button_update_branch_list(self):
         for wizard in self:
             repository_obj = self.env['github.repository']

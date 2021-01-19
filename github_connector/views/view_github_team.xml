@@ -26,7 +26,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <record id="view_github_team_tree" model="ir.ui.view">
         <field name="model">github.team</field>
         <field name="arch" type="xml">
-            <tree colors="gray: partner_qty == 0;">
+            <tree decoration-muted="partner_qty == 0">
                 <field name="complete_name"/>
                 <field name="name"/>
                 <field name="partner_qty"/>

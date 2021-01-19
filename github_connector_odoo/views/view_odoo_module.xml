@@ -23,7 +23,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <record id="view_odoo_module_tree" model="ir.ui.view">
         <field name="model">odoo.module</field>
         <field name="arch" type="xml">
-            <tree colors="gray: module_version_qty == 0;">
+            <tree decoration-muted="module_version_qty == 0">
                 <field name="technical_name"/>
                 <field name="name"/>
                 <field name="organization_serie_ids_description"/>

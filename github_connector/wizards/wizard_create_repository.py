@@ -16,13 +16,13 @@ class WizardCreateRepository(models.TransientModel):
     description = fields.Char(readonly=False)
     organization_id = fields.Many2one(readonly=False)
 
-    @api.multi
+    
     def get_github_data_from_odoo(self):
         self.ensure_one()
         res = super(WizardCreateRepository, self).get_github_data_from_odoo()
         return res
 
-    @api.multi
+    
     def button_create_in_github(self):
         self.ensure_one()
         new_item = self.create_in_github(self.env['github.repository'])

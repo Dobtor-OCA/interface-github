@@ -23,7 +23,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <record id="view_github_repository_tree" model="ir.ui.view">
         <field name="model">github.repository</field>
         <field name="arch" type="xml">
-            <tree colors="gray: repository_branch_qty == 0;">
+            <tree decoration-muted="repository_branch_qty == 0">
                 <field name="complete_name"/>
                 <field name="description"/>
                 <field name="repository_branch_qty" string="# Branches"/>

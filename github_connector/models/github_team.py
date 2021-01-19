@@ -63,7 +63,7 @@ class GithubTeam(models.Model):
         string='Github URL', compute='_compute_github_url', readonly=True)
 
     # Compute Section
-    @api.multi
+    
     @api.depends('github_login', 'organization_id.github_login')
     def _compute_github_url(self):
         for team in self:
@@ -72,7 +72,7 @@ class GithubTeam(models.Model):
                     organization_name=team.organization_id.github_login,
                     team_name=team.github_login)
 
-    @api.multi
+    
     @api.depends('name', 'organization_id.github_login')
     def _compute_complete_name(self):
         for team in self:
@@ -80,13 +80,13 @@ class GithubTeam(models.Model):
                 team.organization_id.github_login + '/'\
                 + (team.github_login and team.github_login or '')
 
-    @api.multi
+    
     @api.depends('partner_ids')
     def _compute_partner_qty(self):
         for team in self:
             team.partner_qty = len(team.partner_ids)
 
-    @api.multi
+    
     @api.depends('repository_ids')
     def _compute_repository_qty(self):
         for team in self:
@@ -117,7 +117,7 @@ class GithubTeam(models.Model):
         })
         return res
 
-    @api.multi
+    
     def get_github_data_from_odoo(self):
         self.ensure_one()
         return {
@@ -126,20 +126,20 @@ class GithubTeam(models.Model):
             'privacy': self.privacy,
         }
 
-    @api.multi
+    
     def get_github_args_for_creation(self):
         self.ensure_one()
         return [
             self.organization_id.github_login,
         ]
 
-    @api.multi
+    
     def full_update(self):
         self.button_sync_member()
         self.button_sync_repository()
 
     # Action Section
-    @api.multi
+    
     def button_sync_member(self):
         partner_obj = self.env['res.partner']
         connector_member = self.get_github_connector(
@@ -160,7 +160,7 @@ class GithubTeam(models.Model):
                 (2, x.id, False) for x in team.partner_ids]
             team.partner_ids = [(0, False, x) for x in partner_data]
 
-    @api.multi
+    
     def button_sync_repository(self):
         repository_obj = self.env['github.repository']
         connector = self.get_github_connector('team_repositories')

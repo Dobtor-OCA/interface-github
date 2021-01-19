@@ -15,7 +15,7 @@ class WizardDownloadAnalyzeBranch(models.TransientModel):
     analyze_source_code = fields.Boolean(
         string='Analyze Source Code', default=True)
 
-    @api.multi
+    
     def apply(self):
         repository_obj = self.env['github.repository.branch']
         for wizard in self:

@@ -88,7 +88,7 @@ class AbstractGithubModel(models.AbstractModel):
         res.update({'github_last_sync_date': fields.Datetime.now()})
         return res
 
-    @api.multi
+    
     def get_github_data_from_odoo(self):
         """Prepare function that map Odoo data to create in Github.
         Usefull only if your model implement creation in github"""
@@ -97,7 +97,7 @@ class AbstractGithubModel(models.AbstractModel):
             "Feature not Implemented : Please define"
             " 'get_github_data_from_odoo' function in child model."))
 
-    @api.multi
+    
     def get_github_args_for_creation(self):
         """Should Return list of arguments required to create the given item
         in Github.
@@ -107,14 +107,14 @@ class AbstractGithubModel(models.AbstractModel):
             "Feature not Implemented : Please define"
             " 'get_github_args_for_creation' function in child model."))
 
-    @api.multi
+    
     def full_update(self):
         """Override this function in models that inherit this abstract
         to mention which items should be synchronized from github when the
         user click on 'Full Update' Button"""
         pass
 
-    @api.multi
+    
     def _hook_after_github_creation(self):
         """Hook that will be called, after a creation in github.
         Override this function to add custom logic for after creation."""
@@ -189,15 +189,15 @@ class AbstractGithubModel(models.AbstractModel):
         else:
             return current_object
 
-    @api.multi
+    
     def button_update_from_github_light(self):
         return self.update_from_github(False)
 
-    @api.multi
+    
     def button_update_from_github_full(self):
         return self.update_from_github(True)
 
-    @api.multi
+    
     def update_from_github(self, child_update):
         """Call Github API, using a URL using github id. Load data and
             update Odoo object accordingly, if the odoo object is obsolete.
@@ -239,7 +239,7 @@ class AbstractGithubModel(models.AbstractModel):
         vals.update(extra_data)
         return self.create(vals)
 
-    @api.multi
+    
     def _update_from_github_data(self, data):
         for item in self:
             vals = self.get_odoo_data_from_github(data)
@@ -260,7 +260,7 @@ class AbstractGithubModel(models.AbstractModel):
             if to_write:
                 item.write(to_write)
 
-    @api.multi
+    
     def get_github_connector(self, github_type):
         no_login = (
             not tools.config.get('github_login') or
@@ -283,7 +283,7 @@ class AbstractGithubModel(models.AbstractModel):
             token=tools.config.get('github_token', "")
         )
 
-    @api.multi
+    
     def create_in_github(self, model_obj):
         self.ensure_one()
         github_connector = self.get_github_connector(self.github_type())
@@ -297,7 +297,7 @@ class AbstractGithubModel(models.AbstractModel):
         new_item._hook_after_github_creation()
         return new_item
 
-    @api.multi
+    
     def get_action(self):
         self.ensure_one()
         return {

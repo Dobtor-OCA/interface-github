@@ -95,7 +95,7 @@ class GithubOrganization(models.Model):
             })
         return res
 
-    @api.multi
+    
     def full_update(self):
         self.button_sync_member()
         self.button_sync_repository()
@@ -109,25 +109,25 @@ class GithubOrganization(models.Model):
         return True
 
     # Compute Section
-    @api.multi
+    
     @api.depends('member_ids', 'member_ids.organization_ids')
     def _compute_member_qty(self):
         for organization in self:
             organization.member_qty = len(organization.member_ids)
 
-    @api.multi
+    
     @api.depends('repository_ids.organization_id')
     def _compute_repository_qty(self):
         for organization in self:
             organization.repository_qty = len(organization.repository_ids)
 
-    @api.multi
+    
     @api.depends('team_ids.organization_id')
     def _compute_team_qty(self):
         for organization in self:
             organization.team_qty = len(organization.team_ids)
 
-    @api.multi
+    
     @api.depends('organization_serie_ids.organization_id')
     def _compute_organization_serie_qty(self):
         for organization in self:
@@ -135,7 +135,7 @@ class GithubOrganization(models.Model):
                 len(organization.organization_serie_ids)
 
     # Action section
-    @api.multi
+    
     def button_sync_member(self):
         github_member = self.get_github_connector('organization_members')
         partner_obj = self.env['res.partner']
@@ -146,7 +146,7 @@ class GithubOrganization(models.Model):
                 member_ids.append(partner.id)
             organization.member_ids = member_ids
 
-    @api.multi
+    
     def button_sync_repository(self):
         repository_obj = self.env['github.repository']
         github_repo = self.get_github_connector('organization_repositories')
@@ -157,7 +157,7 @@ class GithubOrganization(models.Model):
                 repository_ids.append(repository.id)
             organization.repository_ids = repository_ids
 
-    @api.multi
+    
     def button_sync_team(self):
         team_obj = self.env['github.team']
         github_team = self.get_github_connector('organization_teams')

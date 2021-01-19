@@ -44,7 +44,7 @@ class ResPartner(models.Model):
         )
     ]
 
-    @api.multi
+    
     @api.constrains('github_login', 'is_company')
     def _check_login_company(self):
         for partner in self:
@@ -54,13 +54,13 @@ class ResPartner(models.Model):
                     " associated.") % partner.name)
 
     # Compute Section
-    @api.multi
+    
     @api.depends('organization_ids', 'organization_ids.member_ids')
     def _compute_organization_qty(self):
         for partner in self:
             partner.organization_qty = len(partner.organization_ids)
 
-    @api.multi
+    
     @api.depends('github_team_ids')
     def _compute_github_team_qty(self):
         for partner in self:
