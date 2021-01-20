@@ -21,7 +21,8 @@ class ResPartner(models.Model):
 
     github_team_ids = fields.Many2many(
         string='Teams', comodel_name='github.team.partner',
-        inverse_name='partner_id', readonly=True)
+        relation="github_team_partner_rel", column1="partner_id", 
+        column2="team_id", readonly=True)
 
     github_team_qty = fields.Integer(
         string='Number of Teams', compute='_compute_github_team_qty',

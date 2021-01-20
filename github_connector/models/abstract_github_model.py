@@ -29,7 +29,7 @@ class AbstractGithubModel(models.AbstractModel):
     _field_list_prevent_overwrite = []
 
     github_id_external = fields.Char(
-        string='Github Id', readonly=True, index=True, oldname='github_id')
+        string='Github Id', readonly=True, index=True)
 
     github_login = fields.Char(
         string='Github Technical Name', readonly=True, index=True)

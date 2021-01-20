@@ -9,6 +9,7 @@ class GithubOrganization(models.Model):
     _name = 'github.organization'
     _inherit = ['abstract.github.model']
     _order = 'name'
+    _description = "github organization"
 
     _github_type = 'organization'
     _github_login_field = 'login'
@@ -46,7 +47,7 @@ class GithubOrganization(models.Model):
 
     repository_ids = fields.One2many(
         string='Repositories', comodel_name='github.repository',
-        ondelete='cascade', inverse_name='organization_id', readonly=True)
+        inverse_name='organization_id', readonly=True)
 
     repository_qty = fields.Integer(
         string='Number of Repositories', compute='_compute_repository_qty',

@@ -109,31 +109,31 @@ class OdooModuleVersion(models.Model):
     author_ids = fields.Many2many(
         string='Authors', comodel_name='odoo.author',
         relation='github_module_version_author_rel',
-        column1='module_version_id', column2='author_id', multi='author',
+        column1='module_version_id', column2='author_id',
         compute='_compute_author', store=True)
 
     author_ids_description = fields.Char(
-        string='Authors (Text)', compute='_compute_author', multi='author',
+        string='Authors (Text)', compute='_compute_author',
         store=True)
 
     lib_python_ids = fields.Many2many(
         comodel_name='odoo.lib.python', string='Python Lib Dependencies',
         relation='module_version_lib_python_rel', column1='module_version_id',
-        column2='lib_python_id', multi='lib', compute='_compute_lib',
+        column2='lib_python_id', compute='_compute_lib',
         store=True)
 
     lib_python_ids_description = fields.Char(
         string='Python Lib Dependencies (Text)', compute='_compute_lib',
-        multi='lib', store=True)
+        store=True)
 
     lib_bin_ids = fields.Many2many(
         comodel_name='odoo.lib.bin', string='Bin Lib Dependencies',
         relation='module_version_lib_bin_rel', column1='module_version_id',
-        column2='lib_bin_id', multi='lib', compute='_compute_lib', store=True)
+        column2='lib_bin_id', compute='_compute_lib', store=True)
 
     lib_bin_ids_description = fields.Char(
         string='Bin Lib Dependencies (Text)', compute='_compute_lib',
-        multi='lib', store=True)
+        store=True)
 
     odoo_type = fields.Selection(
         string='Odoo Type', selection=_ODOO_TYPE_SELECTION, store=True,

@@ -9,6 +9,7 @@ class GithubTeam(models.Model):
     _name = 'github.team'
     _inherit = ['abstract.github.model']
     _order = 'name'
+    _description = "github team"
 
     _github_type = 'team'
     _github_login_field = 'slug'

@@ -45,7 +45,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                 <field name="module_version_qty"/>
             </field>
             <xpath expr="//div[hasclass('branch_tag_list')]" position="inside">
-                <span class="badge"><i class="fa fa-fw fa-cube"/><field name="module_version_qty"/> Modules</span>
+                <span class="badge"><i class="fa fa-fw fa-cube" title="versions"/><field name="module_version_qty"/> Modules</span>
             </xpath>
 
         </field>

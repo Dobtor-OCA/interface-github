@@ -125,7 +125,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                                 <i><field name="repository_id"/></i>
                             </p>
                             <a target="_blank" t-att-href="record.github_url.value">
-                                <span class="badge"><i class="fa fa-fw fa-github-alt"/></span>
+                                <span class="badge"><i class="fa fa-fw fa-github-alt" title="url"/></span>
                             </a>
 
                             <span class="badge"><t t-esc="record.repository_branch_id.value"/></span>

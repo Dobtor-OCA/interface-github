@@ -29,32 +29,31 @@ class OdooModule(models.Model):
     author_ids = fields.Many2many(
         string='Authors', comodel_name='odoo.author',
         compute='_compute_author', relation='github_module_author_rel',
-        column1='module_id', column2='author_id', multi='author',
+        column1='module_id', column2='author_id',
         store=True)
 
     author_ids_description = fields.Char(
-        string='Authors (Text)', compute='_compute_author', multi='author',
+        string='Authors (Text)', compute='_compute_author',
         store=True)
 
     organization_serie_ids = fields.Many2many(
         string='Series', comodel_name='github.organization.serie',
         compute='_compute_organization_serie',
-        multi='organization_serie', store=True,
+        store=True,
         relation='github_module_organization_serie_rel',
         column1='module_id', column2='organization_serie_id')
 
     organization_serie_ids_description = fields.Char(
         string='Series (Text)', store=True,
-        compute='_compute_organization_serie',
-        multi='organization_serie')
+        compute='_compute_organization_serie',)
 
     description_rst = fields.Char(
         string='RST Description of the last Version', store=True,
-        readonly=True, compute='_compute_description', multi='description_rst')
+        readonly=True, compute='_compute_description')
 
     description_rst_html = fields.Html(
         string='HTML of the RST Description of the last Version', store=True,
-        readonly=True, compute='_compute_description', multi='description_rst')
+        readonly=True, compute='_compute_description')
 
     dependence_module_version_ids = fields.Many2many(
         comodel_name='odoo.module.version',
@@ -68,7 +67,7 @@ class OdooModule(models.Model):
 
     image = fields.Binary(
         string='Icon Image', compute='_compute_image', store=True,
-        reaonly=True)
+        readonly=True)
 
     # Compute Section
     

@@ -116,7 +116,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                                     <i class="fa fa-fw fa-code-fork"/><t t-esc="record.repository_branch_qty.value"/>
                                 </span>
                                 <t t-if="record.is_ignored.raw_value">
-                                    <span class="badge"><i class="fa fa-fw fa-ban"/></span>
+                                    <span class="badge"><i class="fa fa-fw fa-ban" title="Ignore"/></span>
                                 </t>
                             </div>
                         </div>

@@ -13,8 +13,7 @@ class GithubRepository(models.Model):
 
     runbot_id_external = fields.Integer(
         string='ID For Runbot', readonly=True, store=True,
-        compute='_compute_runbot_id_external',
-        oldname='ci_id_external')
+        compute='_compute_runbot_id_external')
 
     # Compute Section
     

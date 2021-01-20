@@ -10,7 +10,7 @@ class GithubOrganization(models.Model):
     _inherit = 'github.organization'
 
     runbot_parse_url = fields.Char(
-        string='URL For Runbot Ids', oldname='runbot_url')
+        string='URL For Runbot Ids')
 
     default_author_text = fields.Char(string='Default Author Text')
 

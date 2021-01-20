@@ -23,6 +23,7 @@ class GithubRepository(models.Model):
     _name = 'github.repository.branch'
     _inherit = ['abstract.github.model']
     _order = 'repository_id, sequence_serie'
+    _description = "github repository branch"
 
     _github_type = 'repository_branches'
     _github_login_field = False

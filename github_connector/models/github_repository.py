@@ -13,6 +13,7 @@ class GithubRepository(models.Model):
     _name = 'github.repository'
     _inherit = ['abstract.github.model']
     _order = 'organization_id, name'
+    _description = "github repository"
 
     _github_type = 'repository'
     _github_login_field = 'full_name'
@@ -50,14 +51,14 @@ class GithubRepository(models.Model):
         store=True)
 
     is_ignored = fields.Boolean(
-        string='Is Ignored', compute='_compute_ignore', multi='ignore',
+        string='Is Ignored', compute='_compute_ignore',
         help="If checked, the branches will not be synchronized, and the"
         " code source will this way not be downloaded and analyzed. To ignore"
         " a repository, go to the organization and add the file"
         " 'Ignored Repositories'.")
 
     color = fields.Integer(
-        string='Color Index', multi='ignore', compute='_compute_ignore')
+        string='Color Index', compute='_compute_ignore')
 
     # Compute Section
     
