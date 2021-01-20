@@ -8,6 +8,7 @@ import logging
 
 from odoo import _, api, exceptions, fields, models, tools
 from odoo.exceptions import UserError
+from datetime import datetime
 
 from .github import Github
 
@@ -77,6 +78,11 @@ class AbstractGithubModel(models.AbstractModel):
             'github_write_date': 'updated_at',
         }
 
+    def process_timezone_fields(self, res):
+        for k, v in res.items():
+            if self._fields[k].type == "datetime" and isinstance(v, str):
+                res[k] = datetime.strptime(v, "%Y-%m-%dT%H:%M:%SZ")
+
     @api.model
     def get_odoo_data_from_github(self, data):
         """Prepare function that map Github data to create in Odoo"""
@@ -86,6 +92,7 @@ class AbstractGithubModel(models.AbstractModel):
             if hasattr(self, k) and data.get(v, False):
                 res.update({k: data[v]})
         res.update({'github_last_sync_date': fields.Datetime.now()})
+        self.process_timezone_fields(res)
         return res
 
     
