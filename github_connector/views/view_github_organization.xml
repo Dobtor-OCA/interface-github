@@ -17,6 +17,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     </record>
 
     <record id="view_github_organization_tree" model="ir.ui.view">
+        <field name="name">github.conector.github.organization.tree</field>
         <field name="model">github.organization</field>
         <field name="arch" type="xml">
             <tree>
@@ -30,9 +31,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     </record>
 
     <record id="view_github_organization_form" model="ir.ui.view">
+        <field name="name">github.connector.github.organization.form</field>
         <field name="model">github.organization</field>
         <field name="arch" type="xml">
-            <form>
+            <form string="Github Organization">
                 <header>
                     <button name="button_sync_member" type="object" string="Members Sync."
                             class="btn btn-default" icon="fa-chevron-right"
@@ -45,14 +47,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                             groups="github_connector.group_github_connector_manager"/>
                 </header>
                 <sheet>
-                    <field name="image" widget="image" class="oe_avatar oe_left"/>
-                    <div class="oe_title">
-                        <h1><field name="name"/></h1>
-                        <h3 class="oe_fade">
-                            <field name="description" class="oe_inline"/>
-                        </h3>
-                    </div>
-                    <div class="oe_right oe_button_box" name="buttons">
+                    <div class="oe_button_box" name="buttons">
                         <button type="action" name="%(action_github_repository)d"
                                 class="oe_stat_button" icon="fa-folder-o"
                                 attrs="{'invisible': [('repository_qty', '=', False)]}"
@@ -71,6 +66,13 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                                 context="{'search_default_organization_ids': active_id}">
                             <field name="member_qty" string="Members" widget="statinfo" />
                         </button>
+                    </div>
+                    <field name="image" widget="image" class="oe_avatar oe_left"/>
+                    <div class="oe_title">
+                        <h1><field name="name"/></h1>
+                        <h3 class="oe_fade">
+                            <field name="description" class="oe_inline"/>
+                        </h3>
                     </div>
                     <div class="oe_clear"/>
                     <group col="4">
@@ -121,9 +123,11 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     </record>
 
     <record id="view_github_organization_kanban" model="ir.ui.view">
+        <field name="name">github.connector.github.organization.kanban</field>
         <field name="model">github.organization</field>
         <field name="arch" type="xml">
             <kanban>
+                <field name="id"/>
                 <field name="image"/>
                 <field name="name"/>
                 <field name="github_login"/>
@@ -138,7 +142,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                 <templates>
                     <t t-name="kanban-box">
                     <div class="oe_module_vignette oe_kanban_global_click">
-                        <img t-att-src="'data:image/png;base64,'+record.image.raw_value" t-att-alt="record.name.value" class="oe_module_icon"/>
+                        <div class="o_kanban_image">
+                            <img t-att-src="kanban_image('github.organization', 'image', record.id.raw_value)" t-att-alt="record.name.value" class="oe_module_icon"/>
+                        </div>
                         <div class="oe_module_desc">
                             <h3><field name="name"/></h3>
                             <h4><field name="github_login"/></h4>
